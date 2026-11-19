@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEARNMATE AI - Personalized Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            LEARNMATE<span> AI</span>
+        </div>
+
+        <p class="menu-heading">MENU</p>
+
+        <nav>
+            <button class="nav-btn active" data-page="dashboard">
+                <span>▦</span> Dashboard
+            </button>
+
+            <button class="nav-btn" data-page="learning">
+                <span>✦</span> Learning Path
+            </button>
+
+            <button class="nav-btn" data-page="library">
+                <span>▤</span> Content Library
+            </button>
+
+            <button class="nav-btn" data-page="quiz">
+                <span>☑</span> Take Quiz
+            </button>
+
+            <button class="nav-btn" data-page="analytics">
+                <span>▥</span> Analytics
+            </button>
+
+            <button class="nav-btn" data-page="tutor">
+                <span>✧</span> AI Tutor
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-icon">✦</div>
+            <h3>Keep Learning!</h3>
+            <p>Your future starts with what you learn today.</p>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- DASHBOARD -->
+        <section class="page active" id="dashboard">
+
+            <header class="topbar">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Welcome back! Here's your learning overview.</p>
+                </div>
+
+                <div class="profile">
+                    <div class="profile-avatar">S</div>
+                    <div>
+                        <strong>Student</strong>
+                        <small>Student Account</small>
+                    </div>
+                </div>
+            </header>
+
+            <div class="welcome">
+                <div>
+                    <span class="welcome-label">PERSONALIZED LEARNING PLATFORM</span>
+                    <h2>Learn Smarter.<br>Achieve More.</h2>
+                    <p>
+                        Improve your knowledge with personalized learning
+                        recommendations based on your performance.
+                    </p>
+                    <button class="primary-btn"
+                        onclick="navigateTo('learning')">
+                        Explore Learning Path →
+                    </button>
+                </div>
+                <div class="welcome-art">✦</div>
+            </div>
+
+            <h2 class="section-title">Your Performance</h2>
+
+            <div class="stats">
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">▥</div>
+                    <p>Average Score</p>
+                    <h2 id="averageScore">0%</h2>
+                    <small>Your overall quiz average</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">✓</div>
+                    <p>Quizzes Completed</p>
+                    <h2 id="topicsCompleted">0</h2>
+                    <small>Completed assessments</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">⚠</div>
+                    <p>Weak Topics</p>
+                    <h2 id="weakTopicsCount">0</h2>
+                    <small>Topics to improve</small>
+                </div>
+
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h2>Recommended For You</h2>
+                        <p>Learning materials based on your performance</p>
+                    </div>
+                    <button class="text-btn"
+                        onclick="navigateTo('learning')">
+                        View All →
+                    </button>
+                </div>
+
+                <div id="dashboardRecommendations">
+                    <p>Take a quiz to receive personalized recommendations.</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- LEARNING PATH -->
+        <section class="page" id="learning">
+
+            <header class="topbar">
+                <div>
+                    <h1>Learning Path</h1>
+                    <p>Your personalized study journey.</p>
+                </div>
+            </header>
+
+            <div class="page-banner">
+                <h2>Your Learning Journey</h2>
+                <p>
+                    We analyze your quiz performance and suggest
+                    what you should learn next.
+                </p>
+            </div>
+
+            <div class="panel">
+                <h2>Personalized Recommendations</h2>
+                <p class="muted">
+                    Focus on the topics where you need improvement.
+                </p>
+
+                <div id="recommendationsList">
+                    <p>Complete a quiz to generate recommendations.</p>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Weak Topics Detection</h2>
+                <p class="muted">
+                    These are the topics that need more attention.
+                </p>
+
+                <div id="weaknessList">
+                    <p>No weak topics detected yet.</p>
+                </div>
+            </div>
+            <div class="panel">
+                <h2>✨ AI-Generated Study Materials</h2>
+                <p class="muted">
+                    Generate notes and practice questions based on your quiz performance.
+                </p>
+                <button class="primary-btn" id="generateMaterialsBtn">
+                    Generate My Study Materials
+                </button>
+                <div id="aiGeneratedMaterials">
+                    <p>Complete a quiz to generate your personalized materials.</p>
+                </div>
+            </div>
+                <div class="panel">
+                    <h2>✨ AI-Generated Study Materials</h2>
+                    <p class="muted">
+                        Generate notes, exercises and a study plan based on your quiz performance.
+                    </p>
+
+                    <button class="primary-btn" id="generateMaterialsBtn">
+                        Generate My Study Materials
+                    </button>
+
+                    <div id="aiGeneratedMaterials">
+                        <p>Complete a quiz to generate personalized materials.</p>
+                    </div>
+                </div>
+            
+        </section>
+
+
+        <!-- CONTENT LIBRARY -->
+        <section class="page" id="library">
+
+            <header class="topbar">
+                <div>
+                    <h1>Content Library</h1>
+                    <p>Explore resources and improve your knowledge.</p>
+                </div>
+            </header>
+
+            <div class="resource-grid">
+
+                <div class="resource-card">
+                    <div class="resource-icon">▤</div>
+                    <h3>Study Notes</h3>
+                    <p>Easy-to-understand notes for difficult topics.</p>
+                    <button onclick="showResource('notes')">
+                        Explore Notes →
+                    </button>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">▷</div>
+                    <h3>Video Lessons</h3>
+                    <p>Understand concepts through video lessons.</p>
+                    <button onclick="showResource('videos')">
+                        Explore Videos →
+                    </button>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">✎</div>
+                    <h3>Practice Exercises</h3>
+                    <p>Improve your skills through practice questions.</p>
+                    <button onclick="showResource('exercises')">
+                        Practice Now →
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="panel">
+                <h2>Learning Materials</h2>
+                <div id="resourceContent">
+                    <p>Select a resource category above.</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- QUIZ -->
+        <section class="page" id="quiz">
+
+            <header class="topbar">
+                <div>
+                    <h1>Knowledge Assessment</h1>
+                    <p>Test your understanding and track your progress.</p>
+                </div>
+            </header>
+
+            <div class="page-banner">
+                <h2>Test Your Knowledge</h2>
+                <p>
+                    Your quiz results help us identify weak topics
+                    and recommend suitable learning materials.
+                </p>
+            </div>
+
+            <div class="panel quiz-panel">
+
+                <h2>Start a New Quiz</h2>
+
+                <label for="subjectSelect">Select Your Subject</label>
+
+                <select id="subjectSelect">
+                    <option value="Python">Python Programming</option>
+                    <option value="DBMS">Database Management System</option>
+                    <option value="Operating Systems">Operating Systems</option>
+                </select>
+
+                <button class="primary-btn" id="startQuiz">
+                    Start Quiz →
+                </button>
+
+                <div id="quizArea"></div>
+                <div id="quizResult"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ANALYTICS -->
+        <section class="page" id="analytics">
+
+            <header class="topbar">
+                <div>
+                    <h1>Performance Analytics</h1>
+                    <p>Analyze your learning progress and achievements.</p>
+                </div>
+            </header>
+
+            <div class="panel">
+                <h2>Subject Performance</h2>
+                <p class="muted">
+                    Your latest quiz performance by subject.
+                </p>
+
+                <div id="performanceList">
+                    <p>Complete quizzes to view your performance.</p>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Progress History</h2>
+                <p class="muted">
+                    Track your quiz results over time.
+                </p>
+
+                <div id="progressHistory">
+                    <p>Your progress history will appear here.</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- AI TUTOR -->
+        
+        <section class="page" id="tutor">
+
+            <div class="page-header">
+                <h1>AI Learning Tutor</h1>
+                <p>Ask questions and improve your understanding.</p>
+            </div>
+
+            <div class="tutor-container">
+
+                <div class="tutor-header">
+                    <h2>LEARNMATE AI</h2>
+                    <p>Your personal learning assistant</p>
+                </div>
+
+                <div id="chatMessages" class="chat-messages">
+                    <div class="bot-message">
+                        Hello! Welcome to LEARNMATE AI Tutor.
+                        <br><br>
+                        Ask me anything about Python, DBMS or Operating Systems!
+                  </div>
+                </div>
+
+                <div class="tutor-input-area">
+                    <input
+                        type="text"
+                        id="userQuestion"
+                        placeholder="Ask your learning question..."
+                    >
+
+                    <button id="sendQuestion">
+                        Send
+                    </button>
+             </div>
+
+             <div class="suggested-questions">
+                    <p>Try asking:</p>
+                    <button class="suggestion" data-question="What is Python?">
+                        What is Python?
+                    </button>
+                    <button class="suggestion" data-question="Explain DBMS">
+                Explain DBMS
+                    </button>
+                 <button class="suggestion" data-question="What is a process in OS?">
+                        What is a process?
+                 </button>
+             </div>
+
+         </div>
+
+        </section>
+
+    
+
+
+
+    </main>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
