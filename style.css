@@ -13,6 +13,105 @@ body {
     color: #ffffff;
 }
 
+.login-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background:
+        radial-gradient(circle at 20% 20%, #392b63 0, transparent 35%),
+        radial-gradient(circle at 80% 80%, #1e3a59 0, transparent 30%),
+        #0d0b18;
+}
+
+.login-screen.hidden {
+    display: none;
+}
+
+.login-card {
+    width: min(420px, 100%);
+    background: rgba(25, 22, 42, 0.96);
+    border: 1px solid #40385b;
+    border-radius: 18px;
+    padding: 32px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+.login-brand {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 32px;
+}
+
+.login-brand span {
+    color: #9878ff;
+}
+
+.login-card h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.login-card > p {
+    color: #aaa3ba;
+    margin-bottom: 24px;
+}
+
+.login-card label {
+    display: block;
+    color: #c8c1d7;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 14px 0 7px;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 13px 14px;
+    color: white;
+    background: #211c35;
+    border: 1px solid #493b69;
+    border-radius: 9px;
+    outline: none;
+}
+
+.login-card input:focus {
+    border-color: #9878ff;
+}
+
+.auth-submit {
+    width: 100%;
+    margin-top: 18px;
+}
+
+.auth-error {
+    min-height: 18px;
+    color: #ff9b9b;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.auth-switch {
+    display: block;
+    margin: 18px auto 0;
+    background: transparent;
+    border: none;
+    color: #b79aff;
+    cursor: pointer;
+}
+
+.profile-logout {
+    margin-left: 8px;
+    padding: 8px 10px;
+    color: #c6b9ef;
+    background: transparent;
+    border: 1px solid #493b69;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
 .app {
     display: flex;
     min-height: 100vh;

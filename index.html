@@ -9,6 +9,34 @@
 </head>
 <body>
 
+<div class="login-screen" id="loginScreen">
+    <div class="login-card">
+        <div class="login-brand">
+            LEARNMATE<span> AI</span>
+        </div>
+        <h1 id="authTitle">Welcome back</h1>
+        <p id="authSubtitle">Sign in to continue learning.</p>
+
+        <form id="loginForm">
+            <label for="authName" id="authNameLabel" hidden>Full name</label>
+            <input id="authName" type="text" placeholder="Full name" autocomplete="name" hidden>
+
+            <label for="authEmail">Email address</label>
+            <input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+
+            <label for="authPassword">Password</label>
+            <input id="authPassword" type="password" placeholder="Enter at least 6 characters" autocomplete="current-password" required minlength="6">
+
+            <p class="auth-error" id="authError"></p>
+            <button class="primary-btn auth-submit" id="authSubmit" type="submit">Sign in</button>
+        </form>
+
+        <button class="auth-switch" id="authSwitch" type="button">
+            New to LearnMate? Create an account
+        </button>
+    </div>
+</div>
+
 <div class="app">
 
     <!-- SIDEBAR -->
@@ -70,9 +98,10 @@
                 <div class="profile">
                     <div class="profile-avatar">S</div>
                     <div>
-                        <strong>Student</strong>
+                        <strong id="profileName">Student</strong>
                         <small>Student Account</small>
                     </div>
+                    <button class="profile-logout" id="logoutButton" type="button" title="Sign out">Sign out</button>
                 </div>
             </header>
 

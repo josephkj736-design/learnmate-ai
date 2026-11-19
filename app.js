@@ -3,6 +3,105 @@
 // LEARNMATE AI - COMPLETE JAVASCRIPT
 // ==========================================
 
+const API_BASE_URL = window.location.origin;
+
+let authMode = "login";
+
+function setAuthUi() {
+    const nameInput = document.getElementById("authName");
+    const nameLabel = document.getElementById("authNameLabel");
+    const title = document.getElementById("authTitle");
+    const subtitle = document.getElementById("authSubtitle");
+    const submit = document.getElementById("authSubmit");
+    const switchButton = document.getElementById("authSwitch");
+
+    const isRegister = authMode === "register";
+    nameInput.hidden = !isRegister;
+    nameLabel.hidden = !isRegister;
+    nameInput.required = isRegister;
+    title.textContent = isRegister ? "Create your account" : "Welcome back";
+    subtitle.textContent = isRegister
+        ? "Start your personalized learning journey."
+        : "Sign in to continue learning.";
+    submit.textContent = isRegister ? "Create account" : "Sign in";
+    switchButton.textContent = isRegister
+        ? "Already have an account? Sign in"
+        : "New to LearnMate? Create an account";
+}
+
+async function submitAuth(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("authEmail").value.trim();
+    const password = document.getElementById("authPassword").value;
+    const name = document.getElementById("authName").value.trim();
+    const errorElement = document.getElementById("authError");
+    const submit = document.getElementById("authSubmit");
+
+    errorElement.textContent = "";
+    submit.disabled = true;
+    submit.textContent = authMode === "register" ? "Creating..." : "Signing in...";
+
+    try {
+        const endpoint = authMode === "register" ? "/api/auth/register" : "/api/auth/login";
+        const response = await fetch(API_BASE_URL + endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(authMode === "register"
+                ? { name, email, password }
+                : { email, password })
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+            errorElement.textContent = data.error || "Authentication failed.";
+            return;
+        }
+
+        localStorage.setItem("learnmateSession", JSON.stringify(data));
+        showAuthenticatedUser(data.user);
+    } catch (error) {
+        errorElement.textContent =
+            `Can't reach the API at ${API_BASE_URL}. Open LearnMate through the backend server and try again.`;
+    } finally {
+        submit.disabled = false;
+        setAuthUi();
+    }
+}
+
+function showAuthenticatedUser(user) {
+    document.getElementById("loginScreen").classList.add("hidden");
+    document.getElementById("profileName").textContent = user.name;
+    const avatar = document.querySelector(".profile-avatar");
+    avatar.textContent = user.name.charAt(0).toUpperCase();
+}
+
+function restoreAuthSession() {
+    try {
+        const session = JSON.parse(localStorage.getItem("learnmateSession"));
+        if (session?.token && session?.user) {
+            showAuthenticatedUser(session.user);
+        }
+    } catch (error) {
+        localStorage.removeItem("learnmateSession");
+    }
+}
+
+document.getElementById("authSwitch").addEventListener("click", () => {
+    authMode = authMode === "login" ? "register" : "login";
+    document.getElementById("authError").textContent = "";
+    setAuthUi();
+});
+
+document.getElementById("loginForm").addEventListener("submit", submitAuth);
+
+document.getElementById("logoutButton").addEventListener("click", () => {
+    localStorage.removeItem("learnmateSession");
+    document.getElementById("loginScreen").classList.remove("hidden");
+});
+
+setAuthUi();
+restoreAuthSession();
 
 // 1. QUIZ QUESTIONS
 const quizData = {
@@ -505,6 +604,7 @@ document.addEventListener("DOMContentLoaded", function() {
 const tutorInput = document.getElementById("userQuestion");
 const sendQuestionButton = document.getElementById("sendQuestion");
 const chatMessages = document.getElementById("chatMessages");
+let tutorInteractionId = null;
 
 async function sendTutorQuestion() {
     if (!tutorInput || !chatMessages) return;
@@ -525,12 +625,17 @@ async function sendTutorQuestion() {
     );
 
     try {
-        const response = await fetch("http://localhost:3000/api/chat", {
+        const response = await fetch(API_BASE_URL + "/api/chat", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ question })
+            body: JSON.stringify({
+                question,
+                ...(tutorInteractionId
+                    ? { previousInteractionId: tutorInteractionId }
+                    : {})
+            })
         });
 
         const data = await response.json();
@@ -540,6 +645,7 @@ async function sendTutorQuestion() {
         }
 
         loadingMessage.textContent = data.answer;
+        tutorInteractionId = data.interactionId || null;
 
     } catch (error) {
         loadingMessage.textContent =
@@ -606,7 +712,7 @@ async function generatePersonalizedMaterials() {
     try {
 
         const response = await fetch(
-            "http://localhost:3000/api/recommendations",
+            API_BASE_URL + "/api/recommendations",
             {
                 method: "POST",
                 headers: {
